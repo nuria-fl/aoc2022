@@ -1,4 +1,4 @@
-const parseInput = require("../parseInput");
+const { parseInput } = require("../parseInput");
 
 function solveStep1(input) {
   const data = parseInput(input).filter((game) => game);

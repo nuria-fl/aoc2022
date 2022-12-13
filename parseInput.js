@@ -7,4 +7,8 @@ function parseInput(file) {
   return input.split("\n").map((entry) => entry.trim());
 }
 
-module.exports = parseInput;
+function parseInputToString(file) {
+  return fs.readFileSync(path.join(__dirname, file)).toString();
+}
+
+module.exports = {parseInput, parseInputToString};

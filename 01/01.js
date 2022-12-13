@@ -1,4 +1,4 @@
-const parseInput = require("../parseInput");
+const { parseInput } = require("../parseInput");
 
 function sortedCaloriesByElf(input) {
   const data = parseInput(input).map((i) => (i ? parseInt(i, 10) : null));
