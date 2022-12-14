@@ -9,7 +9,7 @@ function findEmptyPosition(stack) {
   return stack.length - 1 - emptyPosition;
 }
 
-function solveStep1(input) {
+function getStacksAndMoves(input) {
   const data = parseInputToString(input).split("\n");
   const divider = data.findIndex((v) => v === "");
   const stacksRows = data.slice(0, divider);
@@ -40,6 +40,21 @@ function solveStep1(input) {
     }
   });
 
+  return {
+    stacks,
+    moves,
+  };
+}
+
+function getTopCrates(stacks) {
+  return stacks
+    .map((stack) => stack.find((c) => c).replace(/\[|]/g, ""))
+    .join("");
+}
+
+function solveStep1(input) {
+  const { stacks, moves } = getStacksAndMoves(input);
+
   moves.forEach(([amount, from, to]) => {
     if (!amount) return;
     for (let i = 0; i < amount; i++) {
@@ -58,12 +73,37 @@ function solveStep1(input) {
     }
   });
 
-  return stacks
-    .map((stack) => stack.find((c) => c).replace(/\[|]/g, ""))
-    .join("");
+  return getTopCrates(stacks);
 }
 
-function solveStep2(input) {}
+function solveStep2(input) {
+  const { stacks, moves } = getStacksAndMoves(input);
+
+  moves.forEach(([amount, from, to]) => {
+    if (!amount) return;
+    const fromStack = stacks[from - 1];
+    const toStack = stacks[to - 1];
+    const cratesPositionStart = fromStack.findIndex((crate) => crate);
+    const cratesPositionEnd = cratesPositionStart + parseInt(amount, 10);
+    const cratesToMove = fromStack.slice(
+      cratesPositionStart,
+      cratesPositionEnd
+    );
+
+    const crateToPosition = findEmptyPosition(toStack);
+
+    if (crateToPosition !== null) {
+      toStack.splice(crateToPosition, 1, ...cratesToMove);
+    } else {
+      toStack.unshift(...cratesToMove);
+    }
+    for (let i = cratesPositionStart; i < cratesPositionEnd; i++) {
+      fromStack[i] = "";
+    }
+  });
+
+  return getTopCrates(stacks);
+}
 
 module.exports = {
   solveStep1,

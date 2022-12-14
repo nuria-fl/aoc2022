@@ -5,8 +5,8 @@ it("first step should return 2", () => {
   expect(result).toBe("CMZ");
 });
 
-xit("second step should return 4", () => {
+it("second step should return MCD", () => {
   const result = solveStep2("/05/05.values-example.txt");
 
-  expect(result).toBe(4);
+  expect(result).toBe("MCD");
 });
