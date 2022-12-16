@@ -7,10 +7,10 @@ describe("first step", () => {
   });
 });
 
-xdescribe("second step", () => {
-  it("example 1 should be 19", () => {
+describe("second step", () => {
+  it("example 1 should be 24933642", () => {
     const result = solveStep2("/07/07.values-example.txt");
 
-    expect(result).toBe(19);
+    expect(result).toBe(24933642);
   });
 });
